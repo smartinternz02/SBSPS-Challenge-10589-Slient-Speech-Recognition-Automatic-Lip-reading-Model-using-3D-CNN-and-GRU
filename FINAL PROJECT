@@ -1,0 +1,91 @@
+import speech_recognition as sr
+from PIL import Image
+
+# Create a recognizer instance
+recognizer = sr.Recognizer()
+
+# Use the system's default microphone as the audio source
+mic = sr.Microphone()
+
+print("Listening for speech...")
+
+with mic as source:
+    # Adjust for ambient noise
+    recognizer.adjust_for_ambient_noise(source)
+    
+    while True:
+        try:
+            # Capture audio from the microphone
+            audio_data = recognizer.listen(source, timeout=5)
+            text = recognizer.recognize_google(audio_data)
+            print("You said: ", text)
+            letter_to_image = {
+                'a': 'C:/A.jpg',
+                'b': 'C:/B.jpg',
+                'c': 'C:/C.jpg',
+                'd': 'C:/D.jpg',
+                'e': 'C:/E.jpg',
+                'f': 'C:/F.jpg',
+                'g': 'C:/G.jpg',
+                'h': 'C:/H.jpg',
+                'i': 'C:/I.jpg',
+                'j': 'C:/J.jpg',
+                'k': 'C:/K.jpg',
+                'l': 'C:/L.jpg',
+                'm': 'C:/M.jpg',
+                'n': 'C:/N.jpg',
+                'o': 'C:/O.jpg',
+                'p': 'C:/P.jpg',
+                'q': 'C:/Q.jpg',
+                'r': 'C:/R.jpg',
+                's': 'C:/S.jpg',
+                't': 'C:/T.jpg',
+                'u': 'C:/U.jpg',
+                'v': 'C:/V.jpg',
+                'w': 'C:/W.jpg',
+                'x': 'C:/X.jpg',
+                'y': 'C:/Y.jpg',
+                'z': 'C:/Z.jpg',
+                'A': 'C:/A.jpg',
+                'B': 'C:/B.jpg',
+                'C': 'C:/C.jpg',
+                'D': 'C:/D.jpg',
+                'E': 'C:/E.jpg',
+                'F': 'C:/F.jpg',
+                'G': 'C:/G.jpg',
+                'H': 'C:/H.jpg',
+                'I': 'C:/I.jpg',
+                'J': 'C:/J.jpg',
+                'K': 'C:/K.jpg',
+                'L': 'C:/L.jpg',
+                'M': 'C:/M.jpg',
+                'N': 'C:/N.jpg',
+                'O': 'C:/O.jpg',
+                'P': 'C:/P.jpg',
+                'Q': 'C:/Q.jpg',
+                'R': 'C:/R.jpg',
+                'S': 'C:/S.jpg',
+                'T': 'C:/T.jpg',
+                'U': 'C:/U.jpg',
+                'V': 'C:/V.jpg',
+                'W': 'C:/W.jpg',
+                'X': 'C:/X.jpg',
+                'Y': 'C:/Y.jpg',
+                'Z': 'C:/Z.jpg',
+            }
+            for letter in text:
+                if letter in letter_to_image:
+                    image_filename = letter_to_image[letter]
+                    image = Image.open(image_filename)
+                    image.show()
+                else:
+                    print(f"No image found for letter: {letter}")
+                    break
+            
+        except sr.WaitTimeoutError:
+            print("Listening timed out, restarting...")
+        except sr.UnknownValueError:
+            print("Could not understand audio")
+        except sr.RequestError as e:
+            print("Could not request results; {0}".format(e))
+
